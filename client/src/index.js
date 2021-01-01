@@ -1,4 +1,7 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
+import { AUTH_TOKEN } from './constants';
 // import LinkList from './components/LinkList';
 
 // class App extends Component {
@@ -11,7 +14,8 @@ import React from 'react';
 
 // import React from 'react';
 import ReactDOM from 'react-dom';
-// import './styles/index.css';
+import './styles/index.css';
+import './styles/tachyons.min.css'
 import App from './components/App';
 // // import * as serviceWorker from './serviceWorker';
 
@@ -28,17 +32,31 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
 });
 
+// attach the auth_token to all requests to GraphQL server
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(AUTH_TOKEN);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
 // 3
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
+  // link: httpLink,
   cache: new InMemoryCache()
 });
 
 // 4
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 // serviceWorker.unregister();

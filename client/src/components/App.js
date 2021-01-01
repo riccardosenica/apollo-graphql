@@ -7,7 +7,7 @@ import CreateLink from './CreateLink'
 import Header from './Header';
 import Login from './Login'
 import Search from './Search';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   return (
@@ -23,6 +23,11 @@ const App = () => {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/search" component={Search} />
+          <Route
+            exact
+            path="/new/:page"
+            component={LinkList}
+          />
         </Switch>
       </div>
     </div>

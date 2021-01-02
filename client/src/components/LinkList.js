@@ -56,7 +56,7 @@ const NEW_LINKS_SUBSCRIPTION = gql`
 
 const getQueryVariables = (isNewPage, page) => {
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
-  const take = isNewPage ? LINKS_PER_PAGE : 10;
+  const take = isNewPage ? LINKS_PER_PAGE : 100;
   const orderBy = { createdAt: 'desc' };
   console.log(isNewPage, page, LINKS_PER_PAGE, skip, take, orderBy);
   return { take, skip, orderBy };
@@ -72,8 +72,8 @@ const LinkList = () => {
   );
 
   const page = parseInt(
-    pageIndexParams.length - 1
-    // pageIndexParams[pageIndexParams.length - 1]
+    // pageIndexParams.length - 1
+    pageIndexParams[pageIndexParams.length - 1]
   );
 
   console.log(pageIndexParams.length, page);

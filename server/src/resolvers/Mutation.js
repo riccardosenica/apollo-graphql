@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const utils = require('../utils');
 const { APP_SECRET } = require('../utils');
 
-function post(parent, args, context, info) {
+async function post(parent, args, context, info) {
   const { userId } = context;
 
-  const newLink = context.prisma.link.create({
+  const newLink = await context.prisma.link.create({
     data: {
       url: args.url,
       description: args.description,
@@ -13,30 +14,19 @@ function post(parent, args, context, info) {
     }
   });
 
+  context.pubsub.publish('NEW_LINK', newLink);
+
   return newLink;
 }
-// async function post(parent, args, context, info) {
-//   const { userId } = context;
-
-//   const newLink = await context.prisma.link.create({
-//     data: {
-//       url: args.url,
-//       description: args.description,
-//       postedBy: { connect: { id: userId } }
-//     }
-//   });
-//   context.pubsub.publish('NEW_LINK', newLink);
-
-//   return newLink;
-// }
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
+  
   const user = await context.prisma.user.create({
     data: { ...args, password }
   });
 
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+  const token = utils.setToken(user.id);
 
   return {
     token,
@@ -56,11 +46,12 @@ async function login(parent, args, context, info) {
     args.password,
     user.password
   );
+
   if (!valid) {
     throw new Error('Invalid password');
   }
 
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+  const token = utils.setToken(user.id);
 
   return {
     token,

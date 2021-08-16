@@ -11,7 +11,6 @@ export const FEED_QUERY = gql`
     $orderBy: LinkOrderByInput
   ) {
     feed(take: $take, skip: $skip, orderBy: $orderBy) {
-      id
       links {
         id
         createdAt
@@ -170,29 +169,5 @@ const LinkList = () => {
     </>
   );
 };
-
-// const LinkList = () => {
-//     const linksToRender = [
-//         {
-//             id: '1',
-//             description:
-//                 'Link first😎',
-//             url: 'https://prisma.io'
-//         },
-//         {
-//             id: '2',
-//             description: 'Link zwei',
-//             url: 'https://www.apollographql.com/docs/react/'
-//         }
-//     ];
-// 
-//     return (
-//         <div>
-//             {linksToRender.map((link) => (
-//                 <Link key={link.id} link={link} />
-//             ))}
-//         </div>
-//     );
-// };
 
 export default LinkList;

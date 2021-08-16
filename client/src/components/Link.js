@@ -85,7 +85,7 @@ const Link = (props) => {
         </div>
                 {authToken && (
                     <div className="f6 lh-copy gray">
-                        {link.votes.length} votes | by{' '}
+                        {link.votes.length} votes, submitted by{' '}
                         {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
                         {timeDifferenceForDate(link.createdAt)}
                     </div>
@@ -94,16 +94,5 @@ const Link = (props) => {
         </div>
     );
 };
-
-// const Link = (props) => {
-//     const { link } = props;
-//     return (
-//         <div>
-//             <div>
-//                 {link.id} - {link.description} ({link.url})
-//       </div>
-//         </div>
-//     );
-// };
 
 export default Link;

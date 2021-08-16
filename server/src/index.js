@@ -1,5 +1,6 @@
 const { ApolloServer, PubSub } = require('apollo-server');
 const { PrismaClient } = require('@prisma/client');
+const depthLimit = require('graphql-depth-limit');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const Subscription = require('./resolvers/Subscription');
@@ -31,6 +32,7 @@ const server = new ApolloServer({
     'utf8'
   ),
   resolvers,
+  validationRules: [depthLimit(4)],
   context: ({ req }) => {
     return {
       ...req,

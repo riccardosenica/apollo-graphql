@@ -2,28 +2,15 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { AUTH_TOKEN } from './constants';
-
 import { split } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
-// import LinkList from './components/LinkList';
-
-// class App extends Component {
-//   render() {
-//     return <LinkList />;
-//   }
-// }
-
-// export default App;
-
-// import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 import './styles/tachyons.min.css'
 import App from './components/App';
-// // import * as serviceWorker from './serviceWorker';
 
-// // 1
+// 1
 import {
   ApolloProvider,
   ApolloClient,

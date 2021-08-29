@@ -75,8 +75,6 @@ const LinkList = () => {
     pageIndexParams[pageIndexParams.length - 1]
   );
 
-  console.log(pageIndexParams.length, page);
-
   const pageIndex = page ? (page - 1) * LINKS_PER_PAGE : 0;
 
   const {
@@ -87,8 +85,6 @@ const LinkList = () => {
   } = useQuery(FEED_QUERY, {
     variables: getQueryVariables(isNewPage, page)
   });
-
-  // const { data } = useQuery(FEED_QUERY);
 
   const getLinksToRender = (isNewPage, data) => {
     if (isNewPage) {

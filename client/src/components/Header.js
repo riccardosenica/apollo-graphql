@@ -9,48 +9,30 @@ const Header = () => {
     return (
         <div className="flex pa1 justify-between nowrap orange">
             <div className="flex flex-fixed black">
-                <div className="fw7 mr1">Hacker News</div>
-                <Link to="/" className="ml1 no-underline black">
-                    new
-                </Link>
+                <div className="fw7 mr1">News</div>
+                <Link to="/" className="ml1 no-underline black">Top</Link>
                 <div className="ml1">|</div>
-                <Link to="/top" className="ml1 no-underline black">
-                    top
-                </Link>
+                <Link to="/new/1" className="ml1 no-underline black">New</Link>
                 <div className="ml1">|</div>
-                <Link to="/search" className="ml1 no-underline black">
-                    search
-                </Link>
+                <Link to="/search" className="ml1 no-underline black">Search</Link>
                 {authToken && (
                     <div className="flex">
                         <div className="ml1">|</div>
-                        <Link
-                            to="/create"
-                            className="ml1 no-underline black"
-                        >
-                            submit
-                        </Link>
+                        <Link to="/create" className="ml1 no-underline black">Create</Link>
                     </div>
                 )}
             </div>
             <div className="flex flex-fixed">
                 {authToken ? (
-                    <div
-                        className="ml1 pointer black"
-                        onClick={() => {
+                    <div className="ml1 pointer black" onClick={() => {
                             localStorage.removeItem(AUTH_TOKEN);
                             history.push(`/`);
                         }}
                     >
-                        logout
+                        Logout
                     </div>
                 ) : (
-                        <Link
-                            to="/login"
-                            className="ml1 no-underline black"
-                        >
-                            login
-                        </Link>
+                        <Link to="/login" className="ml1 no-underline black">Login</Link>
                     )}
             </div>
         </div>
